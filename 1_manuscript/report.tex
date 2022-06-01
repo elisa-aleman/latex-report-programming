@@ -1,0 +1,220 @@
+% !TeX program = XeLaTeX
+% !TeX encoding = UTF-8
+
+\documentclass[11pt]{report}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    allcolors = {red}
+}
+\usepackage{url}
+\usepackage[bottom]{footmisc}
+\usepackage{subcaption}
+
+% \usepackage{CJKutf8} % For Japanese UTF-8 text in pdflatex
+
+% For Japanese UTF-8 text in XeLaTeX
+\usepackage{xeCJK}
+\setCJKmainfont{IPAexMincho}
+
+
+\usepackage[japanese]{babel} % For Japanese date format
+\usepackage{indentfirst} % For Japanese style indentation
+\setlength\parindent{11pt}
+
+%%%%%%%%%%%%%%%%
+% For the margins
+\usepackage{geometry}
+\geometry{
+    paper=a4paper, inner=2.5cm, outer=2.5cm, bindingoffset=.5cm, top=1.5cm, bottom=1.5cm, }
+%%%%%%%%%%%%%%%%
+
+%%%%%%%%%
+% For the affiliation command to work in \maketitle
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\affiliation}[1]{% add affiliation to \maketitle
+  \apptocmd{\@author}{\end{tabular}
+    \par
+    \begin{tabular}[t]{c}
+    \small #1}{}{}
+}
+\makeatother
+%%%%%%%%%
+
+%%%%%%%%%
+% For the projectnotes command to work in \maketitle
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\projectnotes}[1]{% add projectnotes to \maketitle
+  \apptocmd{\@author}{
+    \end{tabular}
+    \vspace{10em}
+    \par
+    \begin{tabular}[t]{l}
+    \small #1 
+    \vspace{10em}
+    }{}{}
+}
+\makeatother
+%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[lighttt]{lmodern}
+\usepackage{listings} % to display code
+\usepackage{lstautogobble} % to indent inside latex without affecting the code, keeping the indent the code has inside
+\usepackage{anyfontsize} % for code font size
+\usepackage[os=win]{menukeys} % to display keystrokes
+
+% For the color behind the code sections:
+\usepackage{xcolor} %custom colours
+\definecolor{light-gray}{gray}{0.95} %the shade of grey that stack exchange uses
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+
+% Make a more defined languages for nice colors
+\include{lststyle-css.sty}
+\include{lststyle-html5.sty}
+
+% Set up the code display lst options
+\lstset{
+    % for the code font and size:
+    % basicstyle=\ttfamily\small,
+    basicstyle=\ttfamily\fontsize{10}{12}\selectfont,
+    % to avoid spaces showing as brackets in strings
+    showstringspaces=false,
+    % for straight quotes in code
+    upquote=true, 
+    % for the middle tildes in the code
+    literate={~}{{\fontfamily{ptm}\selectfont \textasciitilde}}1,
+    % for the line break in long texts
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, 
+    % for the keyword colors in the code
+    keywordstyle=\color{blue}\bfseries\ttfamily,
+    stringstyle=\color{purple},
+    commentstyle=\color{darkgray}\ttfamily,
+    keywordstyle={[2]{\color{editorGreen}\bfseries\ttfamily}},
+    autogobble=true % to ignore latex indents but keep code indent
+}
+
+% unnecessary in XeLaTeX
+% % For this specific document with lots of degree signs inside listings
+% \lstset{
+%     literate={°}{\textdegree}1
+% }
+
+% for straight double quotes in code
+\usepackage[T1]{fontenc}
+
+% frame set up
+\usepackage[framemethod=TikZ]{mdframed} %nice frames
+\mdfsetup{
+    backgroundcolor=light-gray,
+    roundcorner=7pt,
+    leftmargin=1,
+    rightmargin=1,
+    innerleftmargin=1em,
+    innertopmargin=0.5em,
+    innerbottommargin=0,
+    outerlinewidth=1,
+    linecolor=light-gray,
+    } 
+
+% Make it affect all lstlistings
+\BeforeBeginEnvironment{lstlisting}{\begin{mdframed}\vskip-.5\baselineskip}
+\AfterEndEnvironment{lstlisting}{\end{mdframed}}
+
+% Make colored box around inline code
+\usepackage{realboxes}
+\usepackage{xpatch}
+
+\makeatletter
+\xpretocmd\lstinline{\Colorbox{light-gray}\bgroup\appto\lst@DeInit{\egroup}}{}{}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+% To make numbered paragraphs
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4} 
+% For deeper numbered sections
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{0.2em}{} % space after number
+\titlespacing*{\paragraph}
+{1.2em}{1em}{1em} %left indent, upper and lower spacing (same as an enumerate)
+
+
+\renewcommand\theparagraph{\arabic{paragraph}.}
+
+% \usepackage{enumitem} % For nested enumerates to have numbers
+%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{nameref} % To reference sections by name
+
+%bibliography
+\usepackage[
+    backend=bibtex
+    ,style=numeric
+    ,natbib=true
+    ,sorting=none
+    ,url=true
+    ,doi=true
+    ]{biblatex}
+\renewbibmacro*{urldate}{
+    (アクセス日： \printfield{urlyear}年\printfield{urlmonth}月\printfield{urlday}日)
+}
+\addbibresource{report.bib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% \begin{CJK}{UTF8}{ipxm}
+%unnecessary in XeLaTeX
+
+\title{Title of report}
+\author{Alem\'an Carre\'on Elisa Claire}
+\affiliation{Company name}
+
+\date{\today}
+
+\projectnotes{
+    \noindent Project repository: \\
+    \noindent Language: Python (3.9), HTML, CSS, SH \\
+    \noindent Framework: Flask \\
+    \noindent Requirements: Python 3.9 or above \\
+    }
+
+\maketitle
+
+\tableofcontents
+
+\clearpage
+
+\include{Chapters/Chapter1}
+\include{Chapters/Chapter2}
+\include{Chapters/Chapter3}
+
+\clearpage
+
+\printbibliography[heading=bibintoc]
+
+% \end{CJK}
+%unnecessary in XeLaTeX
+
+\end{document}

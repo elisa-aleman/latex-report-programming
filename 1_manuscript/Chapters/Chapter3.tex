@@ -1,0 +1,101 @@
+\chapter{LaTeX settings}\label{gen_discussion}
+
+\section{XeLaTeX for Japanese}\label{discussion}
+
+\begin{lstlisting}[language={[latex]TeX}, title={small Language: XeLaTeX}]
+% !TeX program = XeLaTeX
+% !TeX encoding = UTF-8
+
+% For Japanese UTF-8 text in XeLaTeX
+\usepackage{xeCJK}
+\setCJKmainfont{IPAexMincho}
+
+
+\usepackage[japanese]{babel} % For Japanese date format
+\usepackage{indentfirst} % For Japanese style indentation
+\setlength\parindent{11pt}
+\end{lstlisting}
+
+
+For code display:
+
+\begin{lstlisting}[language={[latex]TeX}, title={small Language: XeLaTeX}]
+\usepackage[lighttt]{lmodern}
+\usepackage{listings} % to display code
+\usepackage{lstautogobble} % to indent inside latex without affecting the code, keeping the indent the code has inside
+\usepackage{anyfontsize} % for code font size
+\usepackage[os=win]{menukeys} % to display keystrokes
+
+% For the color behind the code sections:
+\usepackage{xcolor} %custom colours
+\definecolor{light-gray}{gray}{0.95} %the shade of grey that stack exchange uses
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+
+% Make a more defined languages for nice colors
+\include{lststyle-css.sty}
+\include{lststyle-html5.sty}
+
+% Set up the code display lst options
+\lstset{
+    % for the code font and size:
+    % basicstyle=\ttfamily\small,
+    basicstyle=\ttfamily\fontsize{10}{12}\selectfont,
+    % to avoid spaces showing as brackets in strings
+    showstringspaces=false,
+    % for straight quotes in code
+    upquote=true, 
+    % for the middle tildes in the code
+    literate={~}{{\fontfamily{ptm}\selectfont \textasciitilde}}1,
+    % for the line break in long texts
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, 
+    % for the keyword colors in the code
+    keywordstyle=\color{blue}\bfseries\ttfamily,
+    stringstyle=\color{purple},
+    commentstyle=\color{darkgray}\ttfamily,
+    keywordstyle={[2]{\color{editorGreen}\bfseries\ttfamily}},
+    autogobble=true % to ignore latex indents but keep code indent
+}
+
+% unnecessary in XeLaTeX
+% % For this specific document with lots of degree signs inside listings
+% \lstset{
+%     literate={°}{\textdegree}1
+% }
+
+% for straight double quotes in code
+\usepackage[T1]{fontenc}
+
+% frame set up
+\usepackage[framemethod=TikZ]{mdframed} %nice frames
+\mdfsetup{
+    backgroundcolor=light-gray,
+    roundcorner=7pt,
+    leftmargin=1,
+    rightmargin=1,
+    innerleftmargin=1em,
+    innertopmargin=0.5em,
+    innerbottommargin=0,
+    outerlinewidth=1,
+    linecolor=light-gray,
+    } 
+
+% Make it affect all lstlistings
+\BeforeBeginEnvironment{lstlisting}{\begin{mdframed}\vskip-.5\baselineskip}
+\AfterEndEnvironment{lstlisting}{\end{mdframed}}
+
+% Make colored box around inline code
+\usepackage{realboxes}
+\usepackage{xpatch}
+
+\makeatletter
+\xpretocmd\lstinline{\Colorbox{light-gray}\bgroup\appto\lst@DeInit{\egroup}}{}{}
+\makeatother
+\end{lstlisting}
+
+Download \href{}{\lstinline{lststyle-css.sty}} and \href{}{\lstinline{lststyle-html5.sty}} for the colored keywords in CSS and HTML.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%

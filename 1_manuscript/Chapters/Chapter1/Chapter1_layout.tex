@@ -1,0 +1,53 @@
+\section{Project layout}\label{dev-layout}
+
+CMD: \lstinline{tree /F /A | clip} 
+
+\begin{lstlisting}[]
+~/my-project
+|   .gitignore
+|   MANIFEST.in
+|   README.md
+|   requirements.txt
+|   setup.cfg
+|   setup.py
+|   
++---logs
+|       tasklog.md
+|       ...
+|   
++---manual_tests
+|   |   ...
+|   |   ProjectPaths.py
+|   |   UsefulMethods.py
+|   \---__pycache__
+|           ...
+|   
++---report
+|   |   report.tex
+|   |   report.bib
+|   \---...
+|       
++---package-name
+|   |   action.py
+|   |   __init__.py
+|   |   
+|   +---static
+|   |       css_test.html
+|   |       style.css
+|   |       
+|   +---templates
+|   |       layout.html
+|   |       action.html
+|   |       
+|   \---__pycache__
+|           ...
+|       
++---tests
+|   |   conftest.py
+|   |   test_factory.py
+|   \---__pycache__
+|           ...
+|           
+\---venv
+       ...
+\end{lstlisting}

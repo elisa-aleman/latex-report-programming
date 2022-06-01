@@ -1,0 +1,64 @@
+\chapter{Development and code with lstlistings}\label{dev}
+
+I'l write after a comment in that language and a \lstinline{@} the location the code is either written or executed in.
+
+Some Japanese text: 日本語の文書　is displayed normally in XeLaTeX
+
+\begin{lstlisting}[language=bash, title={small Execute in: bash}]
+# @ ~/some-directory
+
+echo 'Hello World!' # ここも also in listings, if using XeLaTeX
+\end{lstlisting}
+
+Parenthesis for the branch if it's using git \lstinline{git}:
+
+\begin{lstlisting}[language=bash, title={small Execute in: bash}]
+# @ ~/some-directory (branch)
+
+echo 'Hello World!'
+\end{lstlisting}
+
+If\lstinline{venv} has \lstinline{activate} :
+
+\begin{lstlisting}[language=bash, title={small Execute in: bash}]
+# @ ~/some-directory (venv)
+
+echo 'Hello World!'
+\end{lstlisting}
+
+If inside a file:
+\begin{lstlisting}[language=python, title={small Language: python}]
+# @ ~/some-directory/some_file.py
+
+print('Hello World!')
+\end{lstlisting}
+
+If inside a method or class inside a file:
+
+\begin{lstlisting}[language=python, title={small Language: python}]
+# @ ~/some-directory/some_file.py :: class HelloWorld:
+
+def display():
+    print('Hello World!')
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, title={small Language: python}]
+# @ ~/some-directory/some_file.py :: class HelloWorld: display():
+
+print('Hello World!')
+\end{lstlisting}
+
+If location isn't relevant:
+
+\begin{lstlisting}[language=bash, title={small Execute in: bash}]
+echo 'Hello World!'
+\end{lstlisting}
+
+
+\input{Chapters/Chapter1/Chapter1_layout}
+
+\input{Chapters/Chapter1/Chapter1_css}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
